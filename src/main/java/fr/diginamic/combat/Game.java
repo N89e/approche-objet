@@ -20,7 +20,9 @@ public class Game {
 
             switch (choix) {
                 case 1:
-                    creerPersonnage();
+                    System.out.println("Choisir un nom : ");
+                    String nom = scanner.nextLine();
+                    creerPersonnage(nom);
                     break;
                 case 2:
                     combattreCreature();
@@ -59,10 +61,10 @@ public class Game {
         }
     }
 
-    private void creerPersonnage() {
-        personnage = new Personnage();
+    private void creerPersonnage(String nom) {
+        personnage = new Personnage(nom);
         System.out.println("Personnage créé !");
-        System.out.println(personnage);
+        System.out.println(personnage.getNom());
     }
 
     private void combattreCreature() {

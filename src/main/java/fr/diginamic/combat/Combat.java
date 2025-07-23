@@ -24,11 +24,11 @@ public class Combat {
 
             System.out.printf("Tour %d :%n", tour);
 
-            int attaquePerso = personnage.attaqueEffective() + random.nextInt(10) + 1; // force + 1..10
+            int attaquePerso = personnage.attaqueEffective() + random.nextInt(10) + 1;
             int attaqueCreature = creature.getForce() + random.nextInt(10) + 1;
 
-            System.out.printf("Attaque personnage: %d (force+bonus+1..10)%n", attaquePerso);
-            System.out.printf("Attaque créature : %d (force+1..10)%n", attaqueCreature);
+            System.out.printf("Attaque personnage " + personnage.getNom() + " :  %d %n", attaquePerso);
+            System.out.printf("Attaque créature " + creature.getNom() + " : %d %n", attaqueCreature);
 
             if (attaquePerso > attaqueCreature) {
                 // personnage gagne le tour

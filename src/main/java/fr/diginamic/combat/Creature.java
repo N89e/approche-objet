@@ -6,7 +6,7 @@ public abstract class Creature {
     protected int force;
     protected int pointsDeSante;
 
-    // Nombre de points score gagnés si victoire contre cette créature
+
     protected int pointsScore;
 
     public String getNom() {

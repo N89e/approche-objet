@@ -5,20 +5,25 @@ import java.util.List;
 import java.util.Random;
 
 public class Personnage {
+    private Random random = new Random();
 
+    private String nom;
     private int force;
     private int pointsDeSante;
     private int score;
     private List<Potion> inventairePotions;
 
-    private int bonusAttaqueProchainCombat;  // durée 1 combat
-    private int bonusAttaqueDeuxCombatsRestants; // durée 2 combats
+    // durée 1 combat
+    private int bonusAttaqueProchainCombat;
+    // durée 2 combats
+    private int bonusAttaqueDeuxCombatsRestants;
 
-    private Random random = new Random();
 
-    public Personnage() {
-        this.force = 12 + random.nextInt(7); // [12;18]
-        this.pointsDeSante = 20 + random.nextInt(31); // [20;50]
+    public Personnage(String nom) {
+        //Caractéristiques des personnages
+        this.nom = nom;
+        this.force = 12 + random.nextInt(7);
+        this.pointsDeSante = 20 + random.nextInt(31);
         this.score = 0;
         this.inventairePotions = new ArrayList<>();
 
@@ -28,16 +33,16 @@ public class Personnage {
         inventairePotions.add(new PotionAttaqueMajeure());
     }
 
-    public int getForce() {
-        return force;
-    }
-
     public int getPointsDeSante() {
         return pointsDeSante;
     }
 
     public void appliquerDegats(int degats) {
         pointsDeSante -= degats;
+    }
+
+    public String getNom() {
+        return nom;
     }
 
     public int getScore() {
@@ -81,7 +86,7 @@ public class Personnage {
     /**
      * Diminuer la durée des potions d'attaque valides pour 2 combats.
      * Une fois utilisé, on enlève le bonus majeur.
-     * Doit être appelé après chaque combat remporté.
+     * Il est appelé après chaque combat remporté.
      */
     public void decrementerDureePotionsAttaque() {
         // Le bonus du potion mineure est pour un combat, on réinitialise à 0 à chaque fin combat gagné
@@ -105,4 +110,6 @@ public class Personnage {
         return String.format("Personnage [force=%d, pointsDeSante=%d, score=%d, potions=[%s]]",
                 force, pointsDeSante, score, inv.toString());
     }
+
+
 }
