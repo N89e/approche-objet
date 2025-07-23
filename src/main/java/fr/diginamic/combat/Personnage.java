@@ -1,0 +1,108 @@
+package fr.diginamic.combat;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class Personnage {
+
+    private int force;
+    private int pointsDeSante;
+    private int score;
+    private List<Potion> inventairePotions;
+
+    private int bonusAttaqueProchainCombat;  // durée 1 combat
+    private int bonusAttaqueDeuxCombatsRestants; // durée 2 combats
+
+    private Random random = new Random();
+
+    public Personnage() {
+        this.force = 12 + random.nextInt(7); // [12;18]
+        this.pointsDeSante = 20 + random.nextInt(31); // [20;50]
+        this.score = 0;
+        this.inventairePotions = new ArrayList<>();
+
+        // Potions initiales (soin, attaque mineure, attaque majeure)
+        inventairePotions.add(new PotionSoin(random.nextInt(6) + 5));
+        inventairePotions.add(new PotionAttaqueMineure());
+        inventairePotions.add(new PotionAttaqueMajeure());
+    }
+
+    public int getForce() {
+        return force;
+    }
+
+    public int getPointsDeSante() {
+        return pointsDeSante;
+    }
+
+    public void appliquerDegats(int degats) {
+        pointsDeSante -= degats;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void ajouterScore(int pts) {
+        score += pts;
+    }
+
+    public List<Potion> getInventairePotions() {
+        return inventairePotions;
+    }
+
+    public void ajouterPotion(Potion p) {
+        inventairePotions.add(p);
+    }
+
+    /**
+     * Calcule attaque effective lors d'un combat, prend en compte bonus potions.
+     * Ajouter bonus attaque majeures et mineures valides.
+     * @return force totale + bonus
+     */
+    public int attaqueEffective() {
+        int bonus = bonusAttaqueProchainCombat + bonusAttaqueDeuxCombatsRestants;
+        return force + bonus;
+    }
+
+    /**
+     * Appliquer potion d'attaque active.
+     * Certaines potions sont valides uniquement pendant le prochain combat, d'autres 2 combats.
+     */
+    public void appliquerPotionAttaque(PotionAttaqueMineure potion) {
+        bonusAttaqueProchainCombat += potion.getBonus();
+    }
+
+    public void appliquerPotionAttaque(PotionAttaqueMajeure potion) {
+        bonusAttaqueDeuxCombatsRestants += potion.getBonus();
+    }
+
+    /**
+     * Diminuer la durée des potions d'attaque valides pour 2 combats.
+     * Une fois utilisé, on enlève le bonus majeur.
+     * Doit être appelé après chaque combat remporté.
+     */
+    public void decrementerDureePotionsAttaque() {
+        // Le bonus du potion mineure est pour un combat, on réinitialise à 0 à chaque fin combat gagné
+        bonusAttaqueProchainCombat = 0;
+
+        // La potion majeur dure 2 combats, on enlève un combat restant
+        if (bonusAttaqueDeuxCombatsRestants > 0) {
+            bonusAttaqueDeuxCombatsRestants -= 5;
+            if (bonusAttaqueDeuxCombatsRestants < 0) bonusAttaqueDeuxCombatsRestants = 0;
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder inv = new StringBuilder();
+        for (Potion p : inventairePotions) {
+            inv.append(p.toString()).append(", ");
+        }
+        if (inv.length() > 2) inv.setLength(inv.length() - 2);
+
+        return String.format("Personnage [force=%d, pointsDeSante=%d, score=%d, potions=[%s]]",
+                force, pointsDeSante, score, inv.toString());
+    }
+}
