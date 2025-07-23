@@ -1,5 +1,16 @@
 package fr.diginamic.combat;
 
+/* REGLE POUR LE PERSONNAGE :
+* lorsqu’on choisit cette option, un personnage va être créé avec 3 attributs :
+▪ force (entre 12 et 18) tirée aléatoirement
+▪ points de santé (entre 20 et 50) tirés aléatoirement
+▪ score (à 0)
+o Le personnage débute avec un inventaire de 3 potions : une potion de soin, une potion d’attaque mineure et une potion de robustesse. Les potions ne peuvent être consommées qu’entre 2 combats.
+▪ Potion de soin (+5 à 10 points de santé).
+▪ Potion d’attaque mineure (+3 points en attaque) valable uniquement pendant la durée du prochain combat
+▪ Potion d’attaque majeure (+5 points en attaque) valable pendant 2 combats
+* */
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

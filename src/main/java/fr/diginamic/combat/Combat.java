@@ -1,5 +1,28 @@
 package fr.diginamic.combat;
 
+/*
+* Le choix de cette option va permettre au personnage d’engager un combat.
+▪ Ce combat n’est possible que si votre personnage a un nombre de points de santé > 0, sinon un message est affiché : « Votre personnage est décédé. Il a obtenu le score de X points. Veuillez créer un nouveau personnage ».
+o lorsqu’on choisit cette option, le personnage doit combattre une créature du bestiaire suivant (à compléter selon vos préférences):
+▪ Un loup : force (entre 3 et 8) et points de santé (entre 5 et 10)
+▪ Un gobelin : force (entre 5 et 10) et points de santé (entre 10 et 15)
+▪ Un troll : force (entre 10 et 15) et points de santé (entre 20 et 30).
+o Le combat commence par l’affichage de la créature rencontrée
+o Le combat est constitué de tours :
+▪ A chaque tour, on calcule l’attaque des 2 protagonistes. l’attaque est calculée de la manière suivante : force + nombre aléatoire entre 1 et 10.
+▪ Celui dont l’attaque est la plus forte remporte le tour
+▪ Celui qui remporte le tour inflige une quantité de dégâts égale à la différence entre les 2 valeurs d’attaque calculées précédemment.
+▪ Cette quantité de dégâts se soustrait au nombre de points de santé de celui qui a perdu le tour.
+▪ Si le nombre de points de santé de votre personnage est nul ou négatif le combat est terminé, la partie est finie et le score du personnage est affiché.
+▪ Si votre personnage gagne le combat, son score augmente de : 1 si c’est un loup, 2 si c’est un gobelin et 5 si c’est un troll. Un message affiche alors l’issue du combat avec le nouveau score.
+o Vous pouvez engager un nouveau combat tant que votre personnage est encore en vie. L’objectif du jeu étant d’atteindre le plus haut score.
+o A la fin d’un combat gagné vous avez 50% de chance (paramètre réglable pour la difficulté) de récupérer une récompense :
+▪ Potion de soin (+5 à 10 points de santé).
+▪ Potion d’attaque mineure (+3 points en attaque) valable uniquement pendant la durée du prochain combat
+▪ Potion d’attaque majeure (+5 points en attaque) valable pendant 2 combats
+▪ Ou score+5
+* */
+
 import java.util.Random;
 
 public class Combat {
